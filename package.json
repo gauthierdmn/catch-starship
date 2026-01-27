@@ -1,0 +1,47 @@
+{
+  "name": "catch-starship",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "SpaceX Starship catching game built with Phaser 3",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode development",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,json,md}\""
+  },
+  "keywords": [
+    "phaser",
+    "game",
+    "spacex",
+    "starship"
+  ],
+  "author": "Gauthier Damien",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gauthierdmn/catch-starship.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gauthierdmn/catch-starship/issues"
+  },
+  "homepage": "https://catch-starship.vercel.app",
+  "dependencies": {
+    "@vercel/analytics": "^1.6.1",
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "html-webpack-plugin": "^5.6.0",
+    "prettier": "^3.8.1",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
