@@ -10,14 +10,14 @@ export default class PreloadScene extends Phaser.Scene {
     const width = this.scale.width;
     const height = this.scale.height;
 
-    // Set industrial steel background color
-    this.cameras.main.setBackgroundColor('#2C3E50');
+    // Set black background color
+    this.cameras.main.setBackgroundColor('#000000');
 
     // Simple, elegant loading indicator
     const loadingText = this.add.text(width / 2, height / 2 - 20, 'LOADING', {
       fontFamily: 'Arial, sans-serif',
       fontSize: '16px',
-      fill: '#95A5A6',
+      fill: '#FFFFFF',
       letterSpacing: 4,
     });
     loadingText.setOrigin(0.5);
@@ -28,7 +28,7 @@ export default class PreloadScene extends Phaser.Scene {
     const barHeight = 2;
 
     // Background line
-    progressBar.lineStyle(barHeight, 0x5d6d7e, 0.4);
+    progressBar.lineStyle(barHeight, 0x333333, 0.6);
     progressBar.lineBetween(
       width / 2 - barWidth / 2,
       height / 2 + 10,
@@ -40,7 +40,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.on('progress', (value) => {
       progressBar.clear();
       // Background
-      progressBar.lineStyle(barHeight, 0x5d6d7e, 0.4);
+      progressBar.lineStyle(barHeight, 0x333333, 0.6);
       progressBar.lineBetween(
         width / 2 - barWidth / 2,
         height / 2 + 10,
@@ -48,7 +48,7 @@ export default class PreloadScene extends Phaser.Scene {
         height / 2 + 10
       );
       // Progress
-      progressBar.lineStyle(barHeight, 0xbdc3c7, 1);
+      progressBar.lineStyle(barHeight, 0xffffff, 1);
       progressBar.lineBetween(
         width / 2 - barWidth / 2,
         height / 2 + 10,

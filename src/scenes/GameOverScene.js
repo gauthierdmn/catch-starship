@@ -71,7 +71,7 @@ export default class GameOverScene extends Phaser.Scene {
         {
           fontFamily: 'Arial, sans-serif',
           fontSize: isMobile ? '15px' : '17px',
-          fill: '#BDC3C7',
+          fill: '#CCCCCC',
           align: 'center',
           wordWrap: { width: width * 0.8 },
         }
@@ -98,7 +98,7 @@ export default class GameOverScene extends Phaser.Scene {
       const statStyle = {
         fontFamily: 'Arial, sans-serif',
         fontSize: statFontSize,
-        fill: '#BDC3C7',
+        fill: '#AAAAAA',
       };
 
       // Speed
@@ -122,9 +122,9 @@ export default class GameOverScene extends Phaser.Scene {
         ease: 'Power2',
       });
 
-      // Separator lines - metallic
+      // Separator lines
       const separator = this.add.graphics();
-      separator.lineStyle(1, 0x7f8c8d, 0.4);
+      separator.lineStyle(1, 0xffffff, 0.2);
       separator.lineBetween(width / 2 - 100, statsY - 15, width / 2 + 100, statsY - 15);
       separator.lineBetween(width / 2 - 100, statsY + 20, width / 2 + 100, statsY + 20);
       separator.setAlpha(0);
@@ -150,7 +150,7 @@ export default class GameOverScene extends Phaser.Scene {
     const retryText = this.add.text(width / 2, height * 0.82, retryTextContent, {
       fontFamily: 'Arial, sans-serif',
       fontSize: retryFontSize,
-      fill: '#ECF0F1',
+      fill: '#FFFFFF',
       letterSpacing: retryLetterSpacing,
     });
     retryText.setOrigin(0.5);
@@ -199,65 +199,48 @@ export default class GameOverScene extends Phaser.Scene {
     const width = this.scale.width;
     const height = this.scale.height;
 
-    // Industrial steel gradient - dark to lighter grey
+    // Pure black background
     const graphics = this.add.graphics();
-    const gradientSteps = 60;
+    graphics.fillStyle(0x000000);
+    graphics.fillRect(0, 0, width, height);
 
-    const steelTop = Phaser.Display.Color.HexStringToColor('#2C3E50');
-    const steelBottom = Phaser.Display.Color.HexStringToColor('#5D6D7E');
-
-    for (let i = 0; i < gradientSteps; i++) {
-      const color = Phaser.Display.Color.Interpolate.ColorWithColor(
-        steelTop,
-        steelBottom,
-        gradientSteps,
-        i
+    // Subtle stars - small white dots scattered
+    for (let i = 0; i < 60; i++) {
+      const star = this.add.circle(
+        Phaser.Math.Between(0, width),
+        Phaser.Math.Between(0, height * 0.7),
+        Phaser.Math.FloatBetween(0.5, 1.5),
+        0xffffff,
+        Phaser.Math.FloatBetween(0.3, 0.8)
       );
 
-      graphics.fillStyle(Phaser.Display.Color.GetColor(color.r, color.g, color.b));
-      graphics.fillRect(0, (height / gradientSteps) * i, width, height / gradientSteps);
+      // Subtle twinkling effect
+      this.tweens.add({
+        targets: star,
+        alpha: Phaser.Math.FloatBetween(0.1, 0.6),
+        duration: Phaser.Math.Between(2000, 4000),
+        yoyo: true,
+        repeat: -1,
+        delay: Phaser.Math.Between(0, 2000),
+        ease: 'Sine.easeInOut',
+      });
     }
 
-    // Metallic horizon line
+    // Subtle horizon glow - very dark blue/grey
     const horizonY = height * 0.7;
-    graphics.lineStyle(2, 0x8a9ba8, 0.4);
-    graphics.lineBetween(0, horizonY, width, horizonY);
-
-    // Dark metallic ground
-    graphics.fillStyle(0x34495e, 0.8);
+    graphics.fillGradientStyle(0x0a0a0a, 0x0a0a0a, 0x000000, 0x000000, 0.8, 0.8, 0, 0);
     graphics.fillRect(0, horizonY, width, height - horizonY);
-
-    // Add subtle steel texture with horizontal lines
-    graphics.lineStyle(1, 0x95a5a6, 0.1);
-    for (let i = 0; i < 40; i++) {
-      const y = Phaser.Math.Between(0, height);
-      graphics.lineBetween(0, y, width, y);
-    }
-
-    // Add industrial grid pattern overlay
-    graphics.lineStyle(1, 0x7f8c8d, 0.05);
-    const gridSize = 50;
-    for (let x = 0; x < width; x += gridSize) {
-      graphics.lineBetween(x, 0, x, height);
-    }
-    for (let y = 0; y < height; y += gridSize) {
-      graphics.lineBetween(0, y, width, y);
-    }
-
-    // Atmospheric overlay for depth
-    graphics.fillStyle(0x000000, 0.2);
-    graphics.fillRect(0, 0, width, height);
   }
 
   createCelebration() {
     const width = this.scale.width;
     const height = this.scale.height;
 
-    // Subtle particle effects - less intense, more elegant
+    // Subtle white particle effects - elegant and minimal
     for (let i = 0; i < 15; i++) {
       const x = Phaser.Math.Between(width * 0.35, width * 0.65);
       const y = height * 0.32;
-      const particle = this.add.circle(x, y, 2, 0xff8533, 0.8);
+      const particle = this.add.circle(x, y, 2, 0xffffff, 0.9);
 
       this.tweens.add({
         targets: particle,
@@ -271,11 +254,11 @@ export default class GameOverScene extends Phaser.Scene {
       });
     }
 
-    // Add subtle glow effect - white/silver
+    // Add subtle glow effect - white
     const glow = this.add.circle(width / 2, height * 0.32, 100, 0xffffff, 0);
     this.tweens.add({
       targets: glow,
-      alpha: 0.12,
+      alpha: 0.15,
       scale: 1.3,
       duration: 1000,
       yoyo: true,

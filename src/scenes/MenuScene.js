@@ -18,12 +18,6 @@ export default class MenuScene extends Phaser.Scene {
     // Create gradient background
     this.createBackground();
 
-    // Add subtle vignette effect
-    const vignette = this.add.graphics();
-    vignette.fillStyle(0x000000, 0);
-    vignette.fillRect(0, 0, width, height);
-    vignette.fillGradientStyle(0x000000, 0x000000, 0x000000, 0x000000, 0.6, 0.6, 0, 0);
-
     // Title - minimalist, large (responsive)
     const titleFontSize = isMobile ? '48px' : '64px';
     const titleLetterSpacing = isMobile ? 4 : 8;
@@ -45,9 +39,9 @@ export default class MenuScene extends Phaser.Scene {
       ease: 'Power2',
     });
 
-    // Subtitle line - metallic silver
+    // Subtitle line - clean white
     const line = this.add.graphics();
-    line.lineStyle(2, 0xbdc3c7, 0.8);
+    line.lineStyle(1, 0xffffff, 0.6);
     line.lineBetween(width / 2 - 80, height * 0.35, width / 2 + 80, height * 0.35);
     line.setAlpha(0);
 
@@ -90,7 +84,7 @@ export default class MenuScene extends Phaser.Scene {
     const requirements = this.add.text(width / 2, objectiveY + 45, 'Landing speed < 80 m/s', {
       fontFamily: 'Arial, sans-serif',
       fontSize: requirementSize,
-      fill: '#95A5A6',
+      fill: '#AAAAAA',
       align: 'center',
     });
     requirements.setOrigin(0.5);
@@ -107,7 +101,7 @@ export default class MenuScene extends Phaser.Scene {
     // Separator line
     const separatorY = objectiveY + 68;
     const separator = this.add.graphics();
-    separator.lineStyle(1, 0x7f8c8d, 0.3);
+    separator.lineStyle(1, 0xffffff, 0.2);
     separator.lineBetween(width / 2 - 100, separatorY, width / 2 + 100, separatorY);
     separator.setAlpha(0);
 
@@ -129,7 +123,7 @@ export default class MenuScene extends Phaser.Scene {
     const controls = this.add.text(width / 2, controlsY, controlsText, {
       fontFamily: 'Arial, sans-serif',
       fontSize: instructionFontSize,
-      fill: '#BDC3C7',
+      fill: '#CCCCCC',
       align: 'center',
     });
     controls.setOrigin(0.5);
@@ -143,14 +137,14 @@ export default class MenuScene extends Phaser.Scene {
       ease: 'Power2',
     });
 
-    // Start instruction - elegant pulsing with steel accent (different for mobile)
+    // Start instruction - elegant pulsing (different for mobile)
     const startTextContent = isMobile ? 'TAP TO START' : 'PRESS SPACE TO BEGIN';
     const startFontSize = isMobile ? '13px' : '15px';
     const startLetterSpacing = isMobile ? 1 : 2;
     const startText = this.add.text(width / 2, height * 0.78, startTextContent, {
       fontFamily: 'Arial, sans-serif',
       fontSize: startFontSize,
-      fill: '#ECF0F1',
+      fill: '#FFFFFF',
       letterSpacing: startLetterSpacing,
     });
     startText.setOrigin(0.5);
@@ -198,70 +192,36 @@ export default class MenuScene extends Phaser.Scene {
     const width = this.scale.width;
     const height = this.scale.height;
 
-    // Industrial steel gradient - dark to lighter grey
+    // Pure black background
     const graphics = this.add.graphics();
-    const gradientSteps = 60;
+    graphics.fillStyle(0x000000);
+    graphics.fillRect(0, 0, width, height);
 
-    const steelTop = Phaser.Display.Color.HexStringToColor('#2C3E50');
-    const steelBottom = Phaser.Display.Color.HexStringToColor('#5D6D7E');
-
-    for (let i = 0; i < gradientSteps; i++) {
-      const color = Phaser.Display.Color.Interpolate.ColorWithColor(
-        steelTop,
-        steelBottom,
-        gradientSteps,
-        i
-      );
-
-      graphics.fillStyle(Phaser.Display.Color.GetColor(color.r, color.g, color.b));
-      graphics.fillRect(0, (height / gradientSteps) * i, width, height / gradientSteps);
-    }
-
-    // Metallic horizon line
-    const horizonY = height * 0.72;
-    graphics.lineStyle(2, 0x8a9ba8, 0.4);
-    graphics.lineBetween(0, horizonY, width, horizonY);
-
-    // Dark metallic ground
-    graphics.fillStyle(0x34495e, 0.8);
-    graphics.fillRect(0, horizonY, width, height - horizonY);
-
-    // Add subtle steel texture with horizontal lines
-    graphics.lineStyle(1, 0x95a5a6, 0.1);
-    for (let i = 0; i < 40; i++) {
-      const y = Phaser.Math.Between(0, height);
-      graphics.lineBetween(0, y, width, y);
-    }
-
-    // Add industrial grid pattern overlay
-    graphics.lineStyle(1, 0x7f8c8d, 0.05);
-    const gridSize = 50;
-    for (let x = 0; x < width; x += gridSize) {
-      graphics.lineBetween(x, 0, x, height);
-    }
-    for (let y = 0; y < height; y += gridSize) {
-      graphics.lineBetween(0, y, width, y);
-    }
-
-    // Atmospheric steel particles floating
-    for (let i = 0; i < 20; i++) {
-      const particle = this.add.circle(
+    // Subtle stars - small white dots scattered
+    for (let i = 0; i < 60; i++) {
+      const star = this.add.circle(
         Phaser.Math.Between(0, width),
-        Phaser.Math.Between(0, height),
-        Phaser.Math.Between(1, 2),
-        0xbdc3c7,
-        Phaser.Math.FloatBetween(0.1, 0.3)
+        Phaser.Math.Between(0, height * 0.7),
+        Phaser.Math.FloatBetween(0.5, 1.5),
+        0xffffff,
+        Phaser.Math.FloatBetween(0.3, 0.8)
       );
 
+      // Subtle twinkling effect
       this.tweens.add({
-        targets: particle,
-        y: particle.y + Phaser.Math.Between(50, 150),
-        x: particle.x + Phaser.Math.Between(-30, 30),
-        alpha: 0,
-        duration: Phaser.Math.Between(8000, 12000),
+        targets: star,
+        alpha: Phaser.Math.FloatBetween(0.1, 0.6),
+        duration: Phaser.Math.Between(2000, 4000),
+        yoyo: true,
         repeat: -1,
-        delay: Phaser.Math.Between(0, 5000),
+        delay: Phaser.Math.Between(0, 2000),
+        ease: 'Sine.easeInOut',
       });
     }
+
+    // Subtle horizon glow - very dark blue/grey
+    const horizonY = height * 0.7;
+    graphics.fillGradientStyle(0x0a0a0a, 0x0a0a0a, 0x000000, 0x000000, 0.8, 0.8, 0, 0);
+    graphics.fillRect(0, horizonY, width, height - horizonY);
   }
 }
