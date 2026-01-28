@@ -612,8 +612,8 @@ export default class GameScene extends Phaser.Scene {
     const truckX = width / 2 - truckOffset;
     const truckY = groundY - 10;
 
-    // Cybertruck distinctive black angular design - larger and more recognizable
-    graphics.fillStyle(0x1a1a1a); // Matte black
+    // Cybertruck distinctive stainless steel angular design
+    graphics.fillStyle(0x1a1a1a); // Matte black/dark steel
 
     // BACK SECTION - Vault/Bed with angular tonneau cover
     graphics.beginPath();
@@ -631,17 +631,28 @@ export default class GameScene extends Phaser.Scene {
     graphics.lineTo(truckX + 28, truckY - 4); // Cab back
     graphics.lineTo(truckX + 38, truckY - 10); // Rear windshield slant (very steep!)
     graphics.lineTo(truckX + 48, truckY - 10); // Flat roof section
-    graphics.lineTo(truckX + 54, truckY - 6); // Front windshield slant
-    graphics.lineTo(truckX + 54, truckY + 10);
+    graphics.lineTo(truckX + 56, truckY - 6); // Front windshield slant
+    graphics.lineTo(truckX + 56, truckY + 10);
     graphics.closePath();
     graphics.fillPath();
 
-    // FRONT - Angular nose/hood (the triangle) - extended
+    // FRONT - More substantial angular nose/hood (the signature triangle)
     graphics.beginPath();
-    graphics.moveTo(truckX + 54, truckY + 10);
-    graphics.lineTo(truckX + 54, truckY - 6);
-    graphics.lineTo(truckX + 64, truckY - 1); // Sharp angular front point (extended by 4px)
-    graphics.lineTo(truckX + 64, truckY + 10);
+    graphics.moveTo(truckX + 56, truckY + 10);
+    graphics.lineTo(truckX + 56, truckY - 6); // Base of hood
+    graphics.lineTo(truckX + 64, truckY - 3); // Hood top line (angled down)
+    graphics.lineTo(truckX + 72, truckY + 2); // Sharp angular front point
+    graphics.lineTo(truckX + 72, truckY + 10); // Front bottom
+    graphics.closePath();
+    graphics.fillPath();
+
+    // Hood detail - shows the angular character line
+    graphics.fillStyle(0x252525);
+    graphics.beginPath();
+    graphics.moveTo(truckX + 56, truckY - 6);
+    graphics.lineTo(truckX + 64, truckY - 3);
+    graphics.lineTo(truckX + 64, truckY);
+    graphics.lineTo(truckX + 56, truckY - 2);
     graphics.closePath();
     graphics.fillPath();
 
@@ -651,6 +662,8 @@ export default class GameScene extends Phaser.Scene {
     graphics.fillRect(truckX + 2, truckY - 1, 26, 1);
     // Roof line
     graphics.fillRect(truckX + 38, truckY - 10, 10, 1);
+    // Hood edge
+    graphics.fillRect(truckX + 56, truckY - 6, 8, 0.5);
 
     // Extremely dark/tinted windows
     graphics.fillStyle(0x0a0a0a, 0.95);
@@ -668,38 +681,39 @@ export default class GameScene extends Phaser.Scene {
     // Front windshield (triangle)
     graphics.beginPath();
     graphics.moveTo(truckX + 48, truckY - 9);
-    graphics.lineTo(truckX + 53, truckY - 5);
-    graphics.lineTo(truckX + 53, truckY);
+    graphics.lineTo(truckX + 55, truckY - 5);
+    graphics.lineTo(truckX + 55, truckY);
     graphics.closePath();
     graphics.fillPath();
 
-    // Distinctive LED light bar (thin red line at front)
-    graphics.fillStyle(0xff0000, 0.6);
-    graphics.fillRect(truckX + 62, truckY, 2, 1);
+    // Distinctive LED light bar (thin red line at front) - more prominent
+    graphics.fillStyle(0xff0000, 0.7);
+    graphics.fillRect(truckX + 70, truckY + 1, 2, 1.5);
 
-    // Undercarriage shadow
+    // Undercarriage shadow - extended to match longer front
     graphics.fillStyle(0x000000, 0.5);
-    graphics.fillRect(truckX + 5, truckY + 9, 54, 2);
+    graphics.fillRect(truckX + 5, truckY + 9, 62, 2);
 
-    // Wheels - larger and more visible
+    // Wheels - larger and more visible, better positioned
     graphics.fillStyle(0x1c1c1c);
-    graphics.fillCircle(truckX + 12, truckY + 10, 4);
-    graphics.fillCircle(truckX + 48, truckY + 10, 4);
+    graphics.fillCircle(truckX + 14, truckY + 10, 4);
+    graphics.fillCircle(truckX + 52, truckY + 10, 4);
 
     // Wheel covers - angular/geometric
     graphics.fillStyle(0x3a3a3a);
-    graphics.fillCircle(truckX + 12, truckY + 10, 2.5);
-    graphics.fillCircle(truckX + 48, truckY + 10, 2.5);
+    graphics.fillCircle(truckX + 14, truckY + 10, 2.5);
+    graphics.fillCircle(truckX + 52, truckY + 10, 2.5);
 
     // Inner rim detail
     graphics.fillStyle(0x505050);
-    graphics.fillCircle(truckX + 12, truckY + 10, 1.2);
-    graphics.fillCircle(truckX + 48, truckY + 10, 1.2);
+    graphics.fillCircle(truckX + 14, truckY + 10, 1.2);
+    graphics.fillCircle(truckX + 52, truckY + 10, 1.2);
 
     // Sharp body edge lines (what makes Cybertruck distinctive)
     graphics.lineStyle(1.5, 0x404040, 0.9);
-    graphics.lineBetween(truckX, truckY + 2, truckX + 64, truckY - 1); // Main body line (extended to new front)
+    graphics.lineBetween(truckX, truckY + 2, truckX + 72, truckY + 2); // Main body line
     graphics.lineBetween(truckX + 28, truckY + 10, truckX + 28, truckY - 4); // Cab separation
+    graphics.lineBetween(truckX + 56, truckY - 6, truckX + 72, truckY + 2); // Angular front edge
 
     // Bed edge highlight
     graphics.lineStyle(1, 0x2a2a2a, 0.7);
